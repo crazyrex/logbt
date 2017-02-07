@@ -90,6 +90,22 @@ function main() {
 
     exit_early
 
+    # test that logbt can collect and pass along environment variables from
+    # an external script that echos them like https://github.com/mapbox/decrypt-kms-env
+    export RESULT=0
+    ./bin/logbt --eval test/set_env_var.sh --target-pattern --current-pattern -v --version -- test/ensure_env_set.sh --foo >${STDOUT_LOGS} 2>${STDERR_LOGS}
+    assertEqual "${RESULT}" "0" "emitted expected signal"
+    # check stdout
+    assertContains "$(stdout 1)" "set the LOGBT_SPECIAL_ENV_SETTING value" "Expected stdout"
+    # skip other options that output strings
+    assertContains "$(stdout 6)" "${EXPECTED_STARTUP_MESSAGE}" "Expected startup message"
+    assertContains "$(stdout 7)" "${EXPECTED_STARTUP_MESSAGE2}" "Expected startup message"
+    assertEqual "$(stdout 8)" "LOGBT_SPECIAL_ENV_SETTING=1" "Emitted expected first line of stdout"
+    # check stderr
+    assertEqual "$(stderr 1)" "" "No stderr"
+
+    exit_early
+
     # test killing logbt from child
     export RESULT=0
     run_test node -e "process.kill(process.env.LOGBT_PID,'SIGINT')"

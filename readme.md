@@ -86,11 +86,43 @@ Then logbt will run as long as your program runs. If `logbt` your program will b
 
 #### Additional options
 
- - `logbt --test`: tests that `logbt` is functioning correctly. Should be run after `logbt --setup`
- - `logbt --current-pattern`: displays the current `core_pattern` value on the system (`/proc/sys/kernel/core_pattern` on linux and `sysctl -n kern.corefile` on OS X)
- - `logbt --target-pattern`: displays the target `core_pattern` value that `logbt --setup` will apply to the system which is `/tmp/logbt-coredumps/core.%p.%e` on linux and `/tmp/logbt-coredumps/core.%P` on OS X)
- - `logbt --version`: Prints the `logbt` version
- - `logbt --help`: Prints the `logbt` usage help
+##### `logbt --test`
+
+Tests that `logbt` is functioning correctly. Should be run after `logbt --setup`
+
+##### `logbt --eval <path to script>`
+
+Allows you to pass a script that will be evaluated. This is designed to safely initialize the environment with options which will be passed along to child processes. The script should echo a string to be evaluated. And example of a script is:
+
+```bash
+echo "export LOGBT_SPECIAL_ENV_SETTING=1;";
+```
+
+The script could also `echo` itself so that you will see it worked in the `logbt` output:
+
+
+```bash
+echo "export LOGBT_SPECIAL_ENV_SETTING=1; echo 'set the LOGBT_SPECIAL_ENV_SETTING value'";
+```
+
+A real-world example of this is: https://github.com/mapbox/decrypt-kms-env
+
+
+##### `logbt --current-pattern`
+
+Displays the current `core_pattern` value on the system (`/proc/sys/kernel/core_pattern` on linux and `sysctl -n kern.corefile` on OS X)
+
+##### `logbt --target-pattern`
+
+Displays the target `core_pattern` value that `logbt --setup` will apply to the system which is `/tmp/logbt-coredumps/core.%p.%e` on linux and `/tmp/logbt-coredumps/core.%P` on OS X)
+
+##### `logbt --version`
+
+Prints the `logbt` version
+
+##### `logbt --help`
+
+Prints the `logbt` usage help
 
 ### Docker considerations
 

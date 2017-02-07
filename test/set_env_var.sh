@@ -1,0 +1,1 @@
+echo "export LOGBT_SPECIAL_ENV_SETTING=1; echo 'set the LOGBT_SPECIAL_ENV_SETTING value'";

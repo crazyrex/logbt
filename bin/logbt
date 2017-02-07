@@ -235,7 +235,6 @@ function sigint_handler() {
 }
 
 function launch_and_wait() {
-
   local program=${1}
   local core_pattern=$(get_core_pattern)
   validate_core_pattern ${core_pattern}
@@ -390,11 +389,18 @@ function get_version() {
   echo ${LOGBT_VERSION}
 }
 
+function eval_script() {
+  local script=${1}
+  eval "$(${1})"
+}
+
 if [[ ! ${1:-} ]]; then
   usage
 fi
 
+
 # https://stackoverflow.com/questions/192249/how-do-i-parse-command-line-arguments-in-bash
+# https://github.com/matejak/argbash
 for i in "$@"
 do
 case $i in
@@ -404,6 +410,13 @@ case $i in
     fi
     shift
     launch_and_wait $@
+    ;;
+    --eval)
+    if [[ ! ${2:-} ]]; then
+      usage
+    fi
+    eval_script $2
+    shift
     ;;
     --setup)
     setup_logbt
@@ -415,9 +428,11 @@ case $i in
     ;;
     --current-pattern)
     get_core_pattern
+    shift
     ;;
     --target-pattern)
     get_target_core_pattern
+    shift
     ;;
     -v | --version)
     get_version
@@ -428,7 +443,7 @@ case $i in
     shift
     ;;
     *)
-    usage
+    shift
     ;;
 esac
 done
