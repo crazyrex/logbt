@@ -19,7 +19,9 @@ jobs:
           command: bin/logbt --test
       - run:
           name: Unit tests
-          command: ./test/unit.sh
+          command: |
+            brew install node
+            ./test/unit.sh
 
 
 workflows:
