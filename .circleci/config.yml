@@ -9,10 +9,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install CocoaPods
-          command: |
-            curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
-            pod install
+          name: Version
+          command: bin/logbt --version
+      - run:
+          name: Current Pattern
+          command: bin/logbt --current-pattern
+      - run:
+          name: Test
+          command: bin/logbt --test
 
 
 
