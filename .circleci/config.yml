@@ -24,6 +24,11 @@ jobs:
             brew install node
             brew install coreutils
             export PATH=$(brew --prefix)/opt/coreutils/libexec/gnubin:${PATH}
+            which kill
+            which cp
+            which sleep
+            which wait
+            which timeout
             ./test/unit.sh
 
 

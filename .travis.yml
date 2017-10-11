@@ -43,6 +43,11 @@ install_default: &run_install
 script_default: &run_script
  - sudo ./bin/logbt --setup
  - ./bin/logbt --test
+ - which kill
+ - which cp
+ - which sleep
+ - which wait
+ - which timeout
  - ./test/unit.sh
 
 services:
