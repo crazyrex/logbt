@@ -1,0 +1,23 @@
+version: 2
+
+jobs:
+  build-and-test:
+
+    macos:
+      xcode: "8.3.3"
+
+    steps:
+      - echo "hello"
+      - run:
+          name: Install CocoaPods
+          command: |
+            curl https://cocoapods-specs.circleci.com/fetch-cocoapods-repo-from-s3.sh | bash -s cf
+            pod install
+
+
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build-and-test
