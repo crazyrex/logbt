@@ -17,7 +17,9 @@ jobs:
       - run:
           name: Test
           command: bin/logbt --test
-
+      - run:
+          name: Unit tests
+          command: ./test/unit.sh
 
 
 workflows:
