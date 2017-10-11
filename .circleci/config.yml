@@ -21,7 +21,9 @@ jobs:
           name: Unit tests
           command: |
             brew update
-            HOMEBREW_NO_AUTO_UPDATE=1 brew install node
+            brew install node
+            brew install coreutils
+            export PATH=$(brew --prefix)/opt/coreutils/libexec/gnubin:${PATH}
             ./test/unit.sh
 
 
