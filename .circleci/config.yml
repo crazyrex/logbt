@@ -29,6 +29,7 @@ jobs:
             which sleep
             which wait
             which timeout
+            which python
             ./test/unit.sh
 
 
