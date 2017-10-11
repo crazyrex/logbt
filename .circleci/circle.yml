@@ -7,7 +7,7 @@ jobs:
       xcode: "8.3.3"
 
     steps:
-      - echo "hello"
+      - checkout
       - run:
           name: Install CocoaPods
           command: |
