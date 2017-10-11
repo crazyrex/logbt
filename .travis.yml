@@ -46,7 +46,7 @@ script_default: &run_script
  - which kill
  - which cp
  - which sleep
- - which wait
+ - which wait || true
  - which timeout
  - ./test/unit.sh
 
