@@ -44,7 +44,9 @@ jobs:
           command: bin/logbt --current-pattern
       - run:
           name: Test
-          command: bin/logbt --test
+          command: |
+           sudo ./bin/logbt --setup
+           bin/logbt --test
       - run:
           name: Unit tests
           command: |
