@@ -1,11 +1,9 @@
 version: 2
 
 jobs:
-  build-and-test:
-
+  build-osx:
     macos:
       xcode: "8.3.3"
-
     steps:
       - checkout
       - run:
@@ -34,9 +32,27 @@ jobs:
             which python
             ./test/unit.sh
 
+  build-linux:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: Version
+          command: bin/logbt --version
+      - run:
+          name: Current Pattern
+          command: bin/logbt --current-pattern
+      - run:
+          name: Test
+          command: bin/logbt --test
+      - run:
+          name: Unit tests
+          command: |
+            ./test/unit.sh
 
 workflows:
   version: 2
   build-and-deploy:
     jobs:
-      - build-and-test
+      - build-osx
+      - build-linux
