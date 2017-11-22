@@ -45,6 +45,7 @@ jobs:
       - run:
           name: Test
           command: |
+           sudo bash -c 'echo 0 > /proc/sys/kernel/yama/ptrace_scope'
            sudo ./bin/logbt --setup
            bin/logbt --test
       - run:
